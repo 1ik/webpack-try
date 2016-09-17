@@ -82,7 +82,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n\tbackground: #33ccaa;\n}", ""]);
+	exports.push([module.id, "body {\n\tbackground: #cccc11;\n}", ""]);
 
 	// exports
 
@@ -438,7 +438,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n\tbackground: #bbccaa;\n}", ""]);
+	exports.push([module.id, "body {\n\t/*background: #bbccaa;*/\n}", ""]);
 
 	// exports
 
@@ -485,7 +485,7 @@
 
 
 	// module
-	exports.push([module.id, "body {\n\tbackground: #aaaacc;\n}", ""]);
+	exports.push([module.id, "body {\n\t/*background: #aaaacc;*/\n}", ""]);
 
 	// exports
 
