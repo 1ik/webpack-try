@@ -18,6 +18,10 @@ let hashChange: any = require('hash-change');
 
 hashChange.on('change', function (hash) {
   console.log('hash is', hash)
-})
+});
+
+
+$('body').css({'background': '#33aacc'});
+
 
 tom.work(task);
