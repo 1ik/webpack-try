@@ -5,9 +5,12 @@
   "main": "bundle.js",
   "dependencies": {
     "css-loader": "^0.25.0",
+    "hash-change": "^0.1.0",
     "style-loader": "^0.13.1"
   },
   "devDependencies": {
+    "awesome-typescript-loader": "^2.2.4",
+    "json-loader": "^0.5.4",
     "ts-loader": "^0.8.2",
     "typescript": "^1.8.10"
   },

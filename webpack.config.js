@@ -5,13 +5,14 @@ module.exports = {
         filename: "bundle.js"
     },
     resolve: {
-        extentions: ['.ts', ''],
-        moduleDirectories: ['node_modules']
+        extensions: ['', '.ts', '.tsx', '.js', '.jsx', '.json']
     },
+
     module: {
         loaders: [
             { test: /\.css$/, loader: "style!css" },
-            { test: /\.tsx?$/, loader: 'ts-loader' }
+            { test: /\.ts$/, loader: 'ts-loader'},
+            {test: /\.json$/, loader: 'json-loader'}
         ]
     }
 };
