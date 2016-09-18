@@ -14,7 +14,7 @@
     "expose-loader": "^0.7.1",
     "json-loader": "^0.5.4",
     "ts-loader": "^0.8.2",
-    "typescript": "^1.8.10",
+    "typescript": "^1.9.0-dev.20160616-1.0",
     "webpack": "^1.13.2"
   },
   "scripts": {

@@ -1,6 +1,34 @@
 /******/ (function(modules) { // webpackBootstrap
+/******/ 	// install a JSONP callback for chunk loading
+/******/ 	var parentJsonpFunction = window["webpackJsonp"];
+/******/ 	window["webpackJsonp"] = function webpackJsonpCallback(chunkIds, moreModules) {
+/******/ 		// add "moreModules" to the modules object,
+/******/ 		// then flag all "chunkIds" as loaded and fire callback
+/******/ 		var moduleId, chunkId, i = 0, callbacks = [];
+/******/ 		for(;i < chunkIds.length; i++) {
+/******/ 			chunkId = chunkIds[i];
+/******/ 			if(installedChunks[chunkId])
+/******/ 				callbacks.push.apply(callbacks, installedChunks[chunkId]);
+/******/ 			installedChunks[chunkId] = 0;
+/******/ 		}
+/******/ 		for(moduleId in moreModules) {
+/******/ 			modules[moduleId] = moreModules[moduleId];
+/******/ 		}
+/******/ 		if(parentJsonpFunction) parentJsonpFunction(chunkIds, moreModules);
+/******/ 		while(callbacks.length)
+/******/ 			callbacks.shift().call(null, __webpack_require__);
+
+/******/ 	};
+
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
+
+/******/ 	// object to store loaded and loading chunks
+/******/ 	// "0" means "already loaded"
+/******/ 	// Array means "loading", array contains callbacks
+/******/ 	var installedChunks = {
+/******/ 		0:0
+/******/ 	};
 
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
@@ -26,6 +54,29 @@
 /******/ 		return module.exports;
 /******/ 	}
 
+/******/ 	// This file contains only the entry chunk.
+/******/ 	// The chunk loading function for additional chunks
+/******/ 	__webpack_require__.e = function requireEnsure(chunkId, callback) {
+/******/ 		// "0" is the signal for "already loaded"
+/******/ 		if(installedChunks[chunkId] === 0)
+/******/ 			return callback.call(null, __webpack_require__);
+
+/******/ 		// an array means "currently loading".
+/******/ 		if(installedChunks[chunkId] !== undefined) {
+/******/ 			installedChunks[chunkId].push(callback);
+/******/ 		} else {
+/******/ 			// start chunk loading
+/******/ 			installedChunks[chunkId] = [callback];
+/******/ 			var head = document.getElementsByTagName('head')[0];
+/******/ 			var script = document.createElement('script');
+/******/ 			script.type = 'text/javascript';
+/******/ 			script.charset = 'utf-8';
+/******/ 			script.async = true;
+
+/******/ 			script.src = __webpack_require__.p + "" + chunkId + ".bundle.js";
+/******/ 			head.appendChild(script);
+/******/ 		}
+/******/ 	};
 
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
@@ -34,7 +85,7 @@
 /******/ 	__webpack_require__.c = installedModules;
 
 /******/ 	// __webpack_public_path__
-/******/ 	__webpack_require__.p = "";
+/******/ 	__webpack_require__.p = "/dist/";
 
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
@@ -49,12 +100,17 @@
 	var task_ts_1 = __webpack_require__(3);
 	var tom = new user_ts_1.User("Tom");
 	var task = new task_ts_1.Task("Code the world ");
-	var hashChange = __webpack_require__(4);
+	var hashChange = __webpack_require__(5);
 	hashChange.on('change', function (hash) {
 	    console.log('hash is', hash);
 	});
 	$('body').css({ 'background': '#33aacc' });
+	__webpack_require__.e/* require */(1, function(__webpack_require__) { var __WEBPACK_AMD_REQUIRE_ARRAY__ = [__webpack_require__(7), __webpack_require__(8)]; (function (data, user) {
+	    console.log('loaded async ', data, user);
+	}.apply(null, __WEBPACK_AMD_REQUIRE_ARRAY__));});
 	tom.work(task);
+	tom.work(new task_ts_1.Task('Code the Universe'));
+	console.log("end of the file");
 
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
@@ -10140,9 +10196,20 @@
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var task_1 = __webpack_require__(3);
+	var utils_ts_1 = __webpack_require__(4);
 	var User = (function () {
 	    function User(name) {
 	        this.name = name;
@@ -10150,6 +10217,12 @@
 	    User.prototype.work = function (task) {
 	        console.log('i am working on' + task.name);
 	    };
+	    __decorate([
+	        utils_ts_1.SaveTheWorld, 
+	        __metadata('design:type', Function), 
+	        __metadata('design:paramtypes', [task_1.Task]), 
+	        __metadata('design:returntype', void 0)
+	    ], User.prototype, "work", null);
 	    return User;
 	}());
 	exports.User = User;
@@ -10173,7 +10246,32 @@
 /* 4 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var EventEmitter = __webpack_require__(5).EventEmitter
+	"use strict";
+	var task_ts_1 = __webpack_require__(3);
+	function SaveTheWorld(target, functionName, descriptor) {
+	    var _this = this;
+	    var originalMethod = descriptor.value;
+	    descriptor.value = function () {
+	        var args = [];
+	        for (var _i = 0; _i < arguments.length; _i++) {
+	            args[_i - 0] = arguments[_i];
+	        }
+	        if (args[0] instanceof task_ts_1.Task && args[0].name.indexOf('world') != -1) {
+	            console.log(" I am saving the world. won't let it execute !! B)");
+	            return;
+	        }
+	        originalMethod.apply(_this, args);
+	    };
+	    return descriptor;
+	}
+	exports.SaveTheWorld = SaveTheWorld;
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	var EventEmitter = __webpack_require__(6).EventEmitter
 
 	var hashchange = module.exports = new EventEmitter()
 
@@ -10187,7 +10285,7 @@
 
 
 /***/ },
-/* 5 */
+/* 6 */
 /***/ function(module, exports) {
 
 	// Copyright Joyent, Inc. and other Node contributors.

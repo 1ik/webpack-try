@@ -1,4 +1,5 @@
 import {Task} from './task';
+import {SaveTheWorld} from './utils.ts';
 
 export class User {
 	public name: string;
@@ -7,6 +8,7 @@ export class User {
 		this.name = name;
 	}
 
+	@SaveTheWorld
 	public work(task: Task): void {
 		console.log('i am working on' + task.name);
 	}
